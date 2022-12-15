@@ -1,16 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Test</title>
-    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button id="chat" >Create Room</button>
+    <!-- <button id="chat" >Create Room</button> -->
+    <input id="url-input" placeholder="your-site-url.here type="text">
+    <button id="update-button">update</button>
+    <iframe 
+        id="iframe-id"
+        src="https://dework.xyz" 
+        title="description" 
+        frameborder="0" 
+        marginheight="0" 
+        marginwidth="0" 
+        width="100%" 
+        height="100%" 
+        scrolling="auto">
+    </iframe>
 </body>
 <script type="module">
-    import Web3Chat from "./https://bylines-cdn.s3.amazonaws.com/src/bylines.js"
+
+    let userurl = "https://dework.xyz";
+
+    const input = document.getElementById("url-input");
+    const updateButton = document.getElementById("update-button");
+
+    updateButton.addEventListener ("click", updateIFrameContent, false);
+    input.addEventListener('input', updateValue);
+    input.addEventListener('keypress', (e) => {
+        if (e.key === "Enter") updateIFrameContent();
+    });
+
+    function updateValue(e) {
+        userurl = e.target.value;
+    }
+
+    function refreshIFrame() {
+        var x = document.getElementById("iframe-id");
+        x.contentWindow.location.reload();
+        var t = setTimeout(refreshIFrame, 500);
+    }
+
+    function updateIFrameContent() {
+        let newurl = userurl;
+        if (!userurl.includes("https://") && !userurl.includes("http://")) {
+            newurl = `https://${userurl}`;
+        }
+
+        document.getElementById("iframe-id").src= newurl;
+        console.log(userurl)
+    }
+
+    import Web3Chat from "https://bylines-cdn.s3.amazonaws.com/src/bylines.js"
     var byl = new Web3Chat("8ead3524-7517-417a-b1ab-e9e04e01b9da"); 
         document.querySelector("#chat").addEventListener("click", () => { 
             console.log("clicked");
