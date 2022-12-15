@@ -2,15 +2,17 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Test</title>
-    <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
-    <!-- <button id="chat" >Create Room</button> -->
-    <input id="url-input" placeholder="your-site-url.here type="text">
-    <button id="update-button">update</button>
+    <div class="header-container">
+        <input id="url-input" class="url-input" placeholder="your-site-url.here" type="text">
+        <button id="update-button" class="update-button">update</button>
+    </div>
     <iframe 
         id="iframe-id"
         src="https://dework.xyz" 
@@ -25,18 +27,7 @@
 </body>
 <script type="module">
 
-
-
-
-    let userurl = "https://dework.xyz";
-
-
-    window.addEventListener("message", (event) => {
-    if (event.origin === "demo.lines.by")
-        console.log(event.data);
-        console.log(event.origin);
-    }, false);
-
+    let userurl = "https://demo.lines.by";
 
     const input = document.getElementById("url-input");
     const updateButton = document.getElementById("update-button");
@@ -74,5 +65,69 @@
 
             byl.createChatRoom( "0xB368705F31406ACFF0Cf79fb2b9a2f81Cfe1826A","0x417B74C558F6FCf93b75B4634b3A494647Ef0057"); 
         });
+
+    /*
+    window.addEventListener("message", (event) => {
+        console.log(event)
+        if (event.origin === "demo.lines.by")
+            console.log(event.data);
+            console.log(event.origin);
+        }
+    , false);
+    */
 </script>
+
+<style>
+    body {
+        background-color: #181b45;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header-container{
+        display: flex;
+        justify-content: center;
+        height: 2.5em;
+        padding: .5em;
+        align-items: center;
+    }
+
+    .url-input{
+        border-radius: 3em;
+        width: 20em;
+        padding: .5em;
+        border:black;
+        height: 1em;;
+    }
+
+    .update-button{
+        background: linear-gradient(245.62deg, #3E4996 -4.2%, #E45E65 102.9%);
+        box-shadow: 0px 8px 20px rgba(174, 87, 118, 0.4);
+        border-radius: 100px;
+
+
+        /* width: auto; */
+        height: 2em;
+        padding: 0 1.5em 0 1.5em;
+
+        font-family: 'Aeonik';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+        /* identical to box height */
+
+
+        color: #FFFFFF;
+
+        border-bottom: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+
+
+        cursor: pointer;
+        margin-left: 10px;
+    }
+</style>
 </html>
