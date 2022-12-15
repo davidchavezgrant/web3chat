@@ -25,7 +25,18 @@
 </body>
 <script type="module">
 
+
+
+
     let userurl = "https://dework.xyz";
+
+
+    window.addEventListener("message", (event) => {
+    if (event.origin === "demo.lines.by")
+        console.log(event.data);
+        console.log(event.origin);
+    }, false);
+
 
     const input = document.getElementById("url-input");
     const updateButton = document.getElementById("update-button");
