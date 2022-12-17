@@ -44,7 +44,7 @@
     // }
 
     function handleUpdateUrl(evt) {
-        if (evt.origin !== "https://localhost:5443") {
+        if (evt.origin !== "https://localhost:5443" || "widget.lines.by") {
             console.log("You are not worthy");
             console.log(event.origin, event.message)
         } else {
