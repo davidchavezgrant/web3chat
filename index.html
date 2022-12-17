@@ -9,12 +9,13 @@
     
 </head>
 <body>
-    <div class="header-container">
+    <!-- <div class="header-container">
         <input id="url-input" class="url-input" placeholder="your-site-url.here" type="text">
         <button id="update-button" class="update-button">update</button>
-    </div>
+    </div> -->
     <iframe 
         id="iframe-id"
+        sandbox="allow-scripts allow-same-origin"
         src="https://dework.xyz" 
         title="description" 
         frameborder="0" 
@@ -32,14 +33,30 @@
     const input = document.getElementById("url-input");
     const updateButton = document.getElementById("update-button");
 
-    updateButton.addEventListener ("click", updateIFrameContent, false);
-    input.addEventListener('input', updateValue);
-    input.addEventListener('keypress', (e) => {
-        if (e.key === "Enter") updateIFrameContent();
-    });
+    // updateButton.addEventListener ("click", updateIFrameContent, false);
+    // input.addEventListener('input', updateValue);
+    // input.addEventListener('keypress', (e) => {
+    //     if (e.key === "Enter") updateIFrameContent();
+    // });
 
-    function updateValue(e) {
-        userurl = e.target.value;
+    // function updateValue(e) {
+    //     userurl = e.target.value;
+    // }
+
+    function handleUpdateUrl(evt) {
+        if (evt.origin !== "https://localhost:5443") {
+            console.log("You are not worthy");
+            console.log(event.origin, event.message)
+        } else {
+            console.log("good!")
+            updateIFrameContent(evt.data);
+        }
+    }
+
+    if (window.addEventListener) {
+        window.addEventListener("message", handleUpdateUrl, false);
+    } else {
+        window.attachEvent("onmessage", handleUpdateUrl);
     }
 
     function refreshIFrame() {
@@ -48,16 +65,18 @@
         var t = setTimeout(refreshIFrame, 500);
     }
 
-    function updateIFrameContent() {
-        let newurl = userurl;
-        if (!userurl.includes("https://") && !userurl.includes("http://")) {
-            newurl = `https://${userurl}`;
+    function updateIFrameContent(inputurl) {
+        let newurl = inputurl;
+        console.log("test userurl", inputurl);
+        if (!inputurl.includes("https://") && !inputurl.includes("http://")) {
+            newurl = `https://${inputurl}`;
         }
 
-        document.getElementById("iframe-id").src= newurl;
-        console.log(userurl)
+        document.getElementById("iframe-id").src = newurl;
+        console.log(newurl);
     }
 
+    // widget
     import Web3Chat from "https://bylines-cdn.s3.amazonaws.com/src/bylines.js"
     var byl = new Web3Chat("8ead3524-7517-417a-b1ab-e9e04e01b9da"); 
         document.querySelector("#chat").addEventListener("click", () => { 
@@ -66,15 +85,6 @@
             byl.createChatRoom( "0xB368705F31406ACFF0Cf79fb2b9a2f81Cfe1826A","0x417B74C558F6FCf93b75B4634b3A494647Ef0057"); 
         });
 
-    /*
-    window.addEventListener("message", (event) => {
-        console.log(event)
-        if (event.origin === "demo.lines.by")
-            console.log(event.data);
-            console.log(event.origin);
-        }
-    , false);
-    */
 </script>
 
 <style>
